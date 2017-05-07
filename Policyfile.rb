@@ -4,13 +4,18 @@
 # https://docs.chef.io/policyfile.html
 
 # A name that describes what the system you're building with Chef does.
-name "meat-and-potatoes"
+name 'meat-and-potatoes'
 
 # Where to find external cookbooks:
 default_source :supermarket
 
 # run_list: chef-client will run these recipes in the order specified.
-run_list "meat-and-potatoes::default"
+run_list 'meat-and-potatoes::default'
 
 # Specify a custom source for a single cookbook:
-cookbook "meat-and-potatoes", path: "."
+cookbook 'meat-and-potatoes', path: '.'
+cookbook 'apt', '~> 6.1.0'
+cookbook 'cron', '~> 4.1.1'
+cookbook 'swap', '~> 2.0.0'
+cookbook 'firewall', '~> 2.6.1'
+cookbook 'ssh_known_hosts', '~> 5.1.0'

@@ -1,6 +1,6 @@
 #
 # Cookbook:: meat-and-potatoes
-# Spec:: default
+# Recipe:: firewall
 #
 # The MIT License (MIT)
 #
@@ -24,20 +24,16 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
+include_recipe 'firewall::default'
 
-require 'spec_helper'
+firewall 'default' do
+  action :install
+end
 
-describe 'meat-and-potatoes::default' do
-  context 'When all attributes are default, on an Ubuntu 16.04' do
-    let(:chef_run) do
-      # for a complete list of available platforms and versions see:
-      # https://github.com/customink/fauxhai/blob/master/PLATFORMS.md
-      runner = ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '16.04')
-      runner.converge(described_recipe)
-    end
-
-    it 'converges successfully' do
-      expect { chef_run }.to_not raise_error
-    end
+node['meat-and-potatoes']['firewall']['ports'].each do |p|
+  firewall_rule "port-#{p}" do
+    port p
+    protocol :tcp
+    command :allow
   end
 end
