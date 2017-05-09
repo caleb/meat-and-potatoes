@@ -24,5 +24,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-ssh_known_hosts_entry 'github.com'
-ssh_known_hosts_entry 'bitbucket.org'
+node['meat-and-potatoes']['ssh_known_hosts'].each do |h|
+  ssh_known_hosts_entry h
+end
