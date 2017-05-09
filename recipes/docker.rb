@@ -1,6 +1,6 @@
 #
 # Cookbook:: meat-and-potatoes
-# Attributes:: default
+# Recipe:: docker
 #
 # The MIT License (MIT)
 #
@@ -24,7 +24,10 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-default['meat-and-potatoes']['swap']['size'] = 1024
-default['meat-and-potatoes']['firewall']['ports'] = [22, 80, 443]
-default['meat-and-potatoes']['docker']['version'] = '17.05.0-ce'
-default['meat-and-potatoes']['docker']['package_options'] = ''
+include_recipe 'chef-apt-docker::default'
+
+docker_installation_package 'default' do
+  version node['meat-and-potatoes']['docker']['version']
+  action :create
+  package_options node['meat-and-potatoes']['docker']['package_options']
+end
