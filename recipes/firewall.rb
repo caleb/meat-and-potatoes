@@ -31,9 +31,33 @@ firewall 'default' do
 end
 
 node['meat-and-potatoes']['firewall']['ports'].each do |p|
+  protocol, port = if p.is_a? Array
+                     spec = p.to_a
+
+                     if spec.size < 1 || ((spec.first.is_a?(String) || spec.first.is_a?(Symbol)) && spec.size < 2)
+                       raise "#{spec} is not a valid port spec (either an int, or an array of form: [protocol, from], [protocol, from, to] or [from, to])"
+                     end
+
+                     from_or_protocol = spec.shift
+                     protocol, from = if from_or_protocol.is_a?(Symbol) ||
+                                         from_or_protocol.is_a?(String)
+                                        [from_or_protocol.to_sym, spec.shift]
+                                      else
+                                        [:tcp, from_or_protocol]
+                                      end
+                     to = spec.shift
+                     if to
+                       [protocol, (from..to)]
+                     else
+                       [protocol, from]
+                     end
+                   else
+                     [:tcp, p]
+                   end
+
   firewall_rule "port-#{p}" do
-    port p
-    protocol :tcp
+    port port
+    protocol protocol
     command :allow
   end
 end
