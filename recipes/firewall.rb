@@ -30,7 +30,7 @@ firewall 'default' do
   action :install
 end
 
-commands = [:log, :redirect, :masquerade, :reject, :deny, :allow]
+actions = [:log, :redirect, :masquerade, :reject, :deny, :allow]
 protocols = [:tcp, :udp, :icmp, :none]
 
 node['meat-and-potatoes']['firewall']['ports'].each do |p|
