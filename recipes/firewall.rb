@@ -43,7 +43,7 @@ node['meat-and-potatoes']['firewall']['ports'].each do |p|
                      protocols = spec.select { |i| commands.include?(i) }
                      protocol = protocols.first || :tcp
 
-                     ports = spec.select { |i| i.is_a? Number }
+                     ports = spec.select { |i| i.is_a? Integer }
                      from, to = ports[0], ports[1]
 
                      if from.nil?
