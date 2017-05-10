@@ -37,10 +37,10 @@ node['meat-and-potatoes']['firewall']['ports'].each do |p|
   action, protocol, port = if p.is_a? Array
                      spec = p.to_a
 
-                     actions = spec.select { |i| commands.include?(i) }
+                     actions = spec.select { |i| actions.include?(i) }
                      action = actions.first || :allow
 
-                     protocols = spec.select { |i| commands.include?(i) }
+                     protocols = spec.select { |i| protocols.include?(i) }
                      protocol = protocols.first || :tcp
 
                      ports = spec.select { |i| i.is_a? Integer }
