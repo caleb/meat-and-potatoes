@@ -30,18 +30,18 @@ firewall 'default' do
   action :install
 end
 
-actions = [:log, :redirect, :masquerade, :reject, :deny, :allow]
-protocols = [:tcp, :udp, :icmp, :none]
+actions = ['log', 'redirect', 'masquerade', 'reject', 'deny', 'allow']
+protocols = ['tcp', 'udp', 'icmp', 'none']
 
 node['meat-and-potatoes']['firewall']['ports'].each do |p|
   action, protocol, port = if p.is_a? Array
                      spec = p.to_a
 
-                     actions = spec.select { |i| actions.include?(i.to_sym) }
-                     action = actions.first || :allow
+                     actions = spec.select { |i| actions.include?(i) }
+                     action = actions.first || 'allow'
 
-                     protocols = spec.select { |i| protocols.include?(i.to_sym) }
-                     protocol = protocols.first || :tcp
+                     protocols = spec.select { |i| protocols.include?(i) }
+                     protocol = protocols.first || 'tcp'
 
                      ports = spec.select { |i| i.is_a? Integer }
                      from, to = ports[0], ports[1]
