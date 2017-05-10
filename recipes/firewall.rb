@@ -30,29 +30,34 @@ firewall 'default' do
   action :install
 end
 
+commands = [:log, :redirect, :masquerade, :reject, :deny, :allow]
+protocols = [:tcp, :udp, :icmp, :none]
+
 node['meat-and-potatoes']['firewall']['ports'].each do |p|
-  protocol, port = if p.is_a? Array
+  action, protocol, port = if p.is_a? Array
                      spec = p.to_a
 
-                     if spec.size < 1 || ((spec.first.is_a?(String) || spec.first.is_a?(Symbol)) && spec.size < 2)
-                       raise "#{spec} is not a valid port spec (either an int, or an array of form: [protocol, from], [protocol, from, to] or [from, to])"
+                     actions = spec.select { |i| commands.include?(i) }
+                     action = actions.first || :allow
+
+                     protocols = spec.select { |i| commands.include?(i) }
+                     protocol = protocols.first || :tcp
+
+                     ports = spec.select { |i| i.is_a? Number }
+                     from, to = ports[0], ports[1]
+
+                     if from.nil?
+                       raise "#{spec} is not a valid port spec (either an int, or an array of form: [<command>, <protocol>, <from>, <to>]." + \
+                             "Only the from port is absolutely required"
                      end
 
-                     from_or_protocol = spec.shift
-                     protocol, from = if from_or_protocol.is_a?(Symbol) ||
-                                         from_or_protocol.is_a?(String)
-                                        [from_or_protocol.to_sym, spec.shift]
-                                      else
-                                        [:tcp, from_or_protocol]
-                                      end
-                     to = spec.shift
                      if to
-                       [protocol, (from..to)]
+                       [action, protocol, from]
                      else
-                       [protocol, from]
+                       [action, protocol, from..to]
                      end
                    else
-                     [:tcp, p]
+                     [:allow, :tcp, p]
                    end
 
   firewall_rule "port-#{p}" do
