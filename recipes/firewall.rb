@@ -37,10 +37,10 @@ node['meat-and-potatoes']['firewall']['ports'].each do |p|
   action, protocol, port = if p.is_a? Array
                      spec = p.to_a
 
-                     actions = spec.select { |i| actions.include?(i) }
+                     actions = spec.select { |i| actions.include?(i.to_sym) }
                      action = actions.first || :allow
 
-                     protocols = spec.select { |i| protocols.include?(i) }
+                     protocols = spec.select { |i| protocols.include?(i.to_sym) }
                      protocol = protocols.first || :tcp
 
                      ports = spec.select { |i| i.is_a? Integer }
@@ -52,9 +52,9 @@ node['meat-and-potatoes']['firewall']['ports'].each do |p|
                      end
 
                      if to
-                       [action, protocol, from..to]
+                       [action.to_sym, protocol.to_sym, from..to]
                      else
-                       [action, protocol, from]
+                       [action.to_sym, protocol.to_sym, from]
                      end
                    else
                      [:allow, :tcp, p]
