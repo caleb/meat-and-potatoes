@@ -52,9 +52,9 @@ node['meat-and-potatoes']['firewall']['ports'].each do |p|
                      end
 
                      if to
-                       [action, protocol, from]
-                     else
                        [action, protocol, from..to]
+                     else
+                       [action, protocol, from]
                      end
                    else
                      [:allow, :tcp, p]
