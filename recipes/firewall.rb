@@ -63,6 +63,6 @@ node['meat-and-potatoes']['firewall']['ports'].each do |p|
   firewall_rule "port-#{p}" do
     port port
     protocol protocol
-    command :allow
+    command action
   end
 end
