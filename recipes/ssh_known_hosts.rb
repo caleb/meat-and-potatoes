@@ -27,7 +27,3 @@
 node['meat-and-potatoes']['ssh_known_hosts'].each do |h|
   ssh_known_hosts_entry h
 end
-
-bash 'trigger the generation of the known hosts file' do
-  notifies :create, 'template[update ssh known hosts file]', :immediate
-end
