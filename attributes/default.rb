@@ -26,6 +26,6 @@
 
 default['meat-and-potatoes']['swap']['size'] = 1024
 default['meat-and-potatoes']['firewall']['ports'] = [22, 80, 443]
-default['meat-and-potatoes']['docker']['version'] = '17.05.0'
+default['meat-and-potatoes']['docker']['version'] = '17.09.0'
 default['meat-and-potatoes']['docker']['package_options'] = ''
 default['meat-and-potatoes']['ssh_known_hosts'] = %w{github.com bitbucket.org}
