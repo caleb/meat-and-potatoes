@@ -26,4 +26,5 @@
 
 swap_file '/mnt/swap' do
   size node['meat-and-potatoes']['swap']['size'] # MBs
+  persist true
 end

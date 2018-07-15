@@ -1,6 +1,6 @@
 #
 # Cookbook:: meat-and-potatoes
-# Recipe:: default
+# Recipe:: logrotate
 #
 # The MIT License (MIT)
 #
@@ -24,12 +24,4 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-include_recipe 'apt::default'
-
-include_recipe 'meat-and-potatoes::firewall'
-include_recipe 'meat-and-potatoes::sshguard'
-include_recipe 'meat-and-potatoes::ssh_known_hosts'
-include_recipe 'meat-and-potatoes::swap'
-include_recipe 'meat-and-potatoes::apt-transport-https'
-include_recipe 'meat-and-potatoes::docker'
-include_recipe 'meat-and-potatoes::logrotate'
+include_recipe 'logrotate::default'

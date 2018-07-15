@@ -4,7 +4,7 @@ maintainer_email 'caleb@land.fm'
 license 'MIT'
 description 'A basic collection of useful recipes used on almost every server'
 long_description 'This is a basic collection of useful recipes used on almost every server'
-version '1.0.1'
+version '1.0.2'
 chef_version '>= 12.1' if respond_to?(:chef_version)
 
 # The `issues_url` points to the location where issues for this cookbook are
@@ -26,3 +26,4 @@ depends 'firewall', '~> 2.6.1'
 depends 'ssh_known_hosts', '~> 4.0.0'
 depends 'chef-apt-docker', '~> 2.0.4'
 depends 'docker', '~> 3.0.0'
+depends 'logrotate', '~> 2.2.0'
