@@ -24,10 +24,3 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-include_recipe 'chef-apt-docker::default'
-
-docker_installation_package 'default' do
-  version node['meat-and-potatoes']['docker']['version']
-  action :create
-  package_options node['meat-and-potatoes']['docker']['package_options']
-end
