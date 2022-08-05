@@ -27,7 +27,7 @@
 include_recipe 'apt::default'
 
 apt_repository 'bullseye-backports' do
-  uri        'http://deb.debian.org/debian'
+  uri        'http://deb.debian.org/debian/'
   components ['bullseye-backports']
 end
 
