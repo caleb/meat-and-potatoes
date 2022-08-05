@@ -4,7 +4,7 @@ maintainer_email 'caleb@land.fm'
 license 'MIT'
 description 'A basic collection of useful recipes used on almost every server'
 long_description 'This is a basic collection of useful recipes used on almost every server'
-version '1.0.4'
+version '1.0.5'
 chef_version '>= 12.1' if respond_to?(:chef_version)
 
 # The `issues_url` points to the location where issues for this cookbook are
