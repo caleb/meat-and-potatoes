@@ -26,6 +26,11 @@
 
 include_recipe 'apt::default'
 
+apt_repository 'bullseye-backports' do
+  uri        'http://deb.debian.org/debian bullseye-backports'
+  components ['main']
+end
+
 include_recipe 'meat-and-potatoes::firewall'
 include_recipe 'meat-and-potatoes::sshguard'
 include_recipe 'meat-and-potatoes::ssh_known_hosts'
